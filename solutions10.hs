@@ -1,5 +1,4 @@
 import Control.Monad (join)
-import Data.List (group)
 -----------------------------------------------------------
 -- 1. Find the last element of a list.
 myLast :: [a] -> a
@@ -100,7 +99,9 @@ compress = join $ foldr addIfNotPresent . (:[]) . last
 -- If a list contains repeated elements,
 -- they should be placed in separate sublists.
 pack :: Eq a => [a] -> [[a]]
-pack = group
+pack [] = []
+pack (x:xs) = (x:xs') : pack xs''
+    where (xs', xs'') = span (== x) xs
 -- | Example:
 --
 -- >>> pack ['a', 'a', 'a', 'a', 'b', 'c', 'c', 'a', 'a', 'd', 'e', 'e', 'e', 'e']
