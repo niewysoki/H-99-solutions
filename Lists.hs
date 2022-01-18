@@ -2,6 +2,7 @@ import Control.Monad (join)
 import Data.Tuple ( swap )
 import qualified Control.Arrow as Data.Bifunctor
 import Data.Bifunctor (second)
+import Data.List (subsequences)
 -----------------------------------------------------------
 -- 1. Find the last element of a list.
 -- | Example:
@@ -280,7 +281,20 @@ insertAt x xs = uncurry (++) . second (x:) . split xs . subtract 1
 
 range :: Int -> Int -> [Int]
 range = enumFromTo
+
 -----------------------------------------------------------
+-- 26. (**) Generate the combinations of K distinct objects 
+-- chosen from the N elements of a list.
+
+
+-- | Example:
+--
+-- >>> take 3 $ combinations 3 "abcdef"
+-- ["abc","abd","abe"]
+
+combinations :: Int -> [a] -> [[a]]
+combinations = (. subsequences) . filter . (. length) . (==)
+
 -----------------------------------------------------------
 -----------------------------------------------------------
 -----------------------------------------------------------
